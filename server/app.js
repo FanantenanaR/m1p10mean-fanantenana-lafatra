@@ -11,7 +11,7 @@ var clientRouter = require('./routes/apiclient')
 var app = express();
 
 const connectDB = require('./db/connection')
-connectDB()
+connectDB();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

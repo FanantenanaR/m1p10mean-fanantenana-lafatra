@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./server/bin/www",
     "start-with-nodemon": "nodemon ./server/bin/www",
+    "dev": "nodemon ./server/bin/www",
     "ng": "ng",
     "start-front": "ng serve",
     "build": "ng build",

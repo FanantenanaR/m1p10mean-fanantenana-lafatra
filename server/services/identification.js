@@ -1,6 +1,11 @@
 const checker = require("../helper/checker");
 const Client = require('../model/client');
-
+/**
+ *
+ * @param {Request} request Request from the controller
+ * @param {Response} response response object
+ * @returns {void}
+ */
 const clientInscription = (request, response) => {
     const nom = request.body.nom;
     if (!checker.isInputValid(nom, checker.IS_EMPTY_STRING)) {
@@ -14,15 +19,8 @@ const clientInscription = (request, response) => {
         return;
     }
     const prenom = request.body.prenom;
-    if (!checker.isInputValid(prenom, checker.IS_EMPTY_STRING)) {
-        const error = {
-            "status": 500,
-            "message": "Veuillez remplir le champs 'prenom'.",
-            "errorType": "InvalidField",
-            "field": "prenom"
-        };
-        response.status(500).send(error);
-        return;
+    if (prenom === undefined) {
+      prenom = "";
     }
     const dateNaissance = request.body.dateNaissance;
     if (!checker.isInputValid(dateNaissance, checker.IS_VALID_DATE)) {

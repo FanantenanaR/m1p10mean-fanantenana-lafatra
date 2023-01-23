@@ -21,6 +21,6 @@ router.post('/loginClient', traitementLogin.traitementLoginClient);
 
 router.post('/loginPersonnel', traitementLogin.traitementLoginPersonnel);
 
-router.post('/enregistrementDepot', depot.enregistrementDepot);
+router.post('/depot/enregistrementDepot', depot.enregistrementDepot);
 
 module.exports = router;

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoginserviceService } from '../loginservice.service';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-loginclient',
-  templateUrl: './loginclient.component.html',
-  styleUrls: ['./loginclient.component.css']
+  selector: 'app-loginresponsable',
+  templateUrl: './loginresponsable.component.html',
+  styleUrls: ['./loginresponsable.component.css']
 })
-export class LoginclientComponent implements OnInit {
+export class LoginresponsableComponent implements OnInit {
 
   public userForm: FormGroup;
   login: string = "";
@@ -22,7 +21,6 @@ export class LoginclientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   statusError: any;
@@ -31,15 +29,14 @@ export class LoginclientComponent implements OnInit {
     this.login = this.userForm.get('login')?.value;
     this.mdp = this.userForm.get('mdp')?.value;
 
-    this.loginService.loginClient(this.login, this.mdp).subscribe(
+
+    this.loginService.loginResponsable(this.login, this.mdp).subscribe(
       (data: any) => {
-        console.log(data);
         if(data.status == 200){
-          localStorage.setItem('idClient',data);
-          window.location.href = "clientAccueil";
+          //localStorage.setItem('idResponsable', )
+          window.location.href = "respAccueil";
         }
       }, (error: any) => {
-        console.log(error.status);
         if(error.status == 404){
           this.statusError = 404;
         }
@@ -49,4 +46,5 @@ export class LoginclientComponent implements OnInit {
       }
     )
   }
+
 }

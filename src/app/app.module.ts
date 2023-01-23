@@ -9,6 +9,8 @@ import { LoginclientComponent } from './loginclient/loginclient.component';
 import { ClientaccueilComponent } from './clientaccueil/clientaccueil.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { LoginresponsableComponent } from './loginresponsable/loginresponsable.component';
+import { ResponsabledepotComponent } from './responsabledepot/responsabledepot.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
     ResponsableaccueilComponent,
     ResponsbleheaderComponent,
     LoginclientComponent,
-    ClientaccueilComponent
+    ClientaccueilComponent,
+    LoginresponsableComponent,
+    ResponsabledepotComponent
   ],
   imports: [
     BrowserModule,

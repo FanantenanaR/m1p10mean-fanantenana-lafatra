@@ -16,4 +16,9 @@ export class LoginserviceService {
     return this.http.post(this.urlBase+this.urlSuite, {login: login, mdp: mdp});
   }
 
+  loginResponsable(login: any, mdp: any){
+    this.urlSuite = 'loginPersonnel';
+    return this.http.post(this.urlBase+this.urlSuite, {login: login, mdp: mdp});
+  }
+
 }

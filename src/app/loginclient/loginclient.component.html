@@ -7,10 +7,11 @@
             <div class="auth-form-transparent text-left p-3">
 
               <h4>Welcome to Garage Zaun!</h4>
-              <div *ngIf="status === 404">
+
+              <div *ngIf="statusError === 404">
                 <h6 style="color: red;"> Identifiant ou mot de passe incorrecte. </h6>
               </div>
-              <div *ngIf="status === 500">
+              <div *ngIf="statusError === 500">
                 <h6 style="color: red;"> Veuillez remplir tous les champs. </h6>
               </div>
 

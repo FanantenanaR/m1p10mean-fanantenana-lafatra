@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: "http://localhost:8002/",
+  baseURL: "https://m1p10mean-fanantenana-lafatra-production.up.railway.app/",
 };

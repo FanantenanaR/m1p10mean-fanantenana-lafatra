@@ -26,9 +26,18 @@ const ClientSchema = new mongoose.Schema(
             required: true
         },
         "cin": {
-            "numero": Number,
-            "dateDelivrance": Date,
-            "lieuDelivrance": String,
+            "numero": {
+                type: Number,
+                required: true
+            },
+            "dateDelivrance": {
+                type: Date,
+                required: true
+            },
+            "lieuDelivrance": {
+                type: String,
+                required: true
+            },
         },
         "dateInscription": {
             type: Date,

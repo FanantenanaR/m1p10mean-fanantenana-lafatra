@@ -39,6 +39,7 @@ npm run start-front
 
 # Structure du projet
 ## Server 
+Dans le dossier `./server`
 ```
 +---bin // emplacement lancement server
 +---routes // emplacement des routes

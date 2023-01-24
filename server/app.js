@@ -13,10 +13,17 @@ var app = express();
 const connectDB = require('./db/connection')
 connectDB();
 
+require(`dotenv`).config();
+const front_URL = process.env.FRONT_URL | "http://localhost:4200";
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use((request, response, next) => {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

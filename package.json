@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./server/bin/www",
     "start-with-nodemon": "nodemon ./server/bin/www",
+    "dev": "nodemon ./server/bin/www",
     "ng": "ng",
     "start-front": "ng serve",
     "build": "ng build",
@@ -13,10 +14,12 @@
   },
   "dependencies": {
     "@angular/animations": "^14.2.0",
+    "@angular/cdk": "^13.0.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
     "@angular/core": "^14.2.0",
     "@angular/forms": "^14.2.0",
+    "@angular/material": "^13.0.0",
     "@angular/platform-browser": "^14.2.0",
     "@angular/platform-browser-dynamic": "^14.2.0",
     "@angular/router": "^14.2.0",
@@ -29,6 +32,7 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
+    "moment": "^2.29.4",
     "mongoose": "^6.8.3",
     "morgan": "~1.9.1",
     "rxjs": "~7.5.0",

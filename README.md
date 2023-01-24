@@ -8,10 +8,13 @@ Projet M1 - P10 - MEAN - Web Avancé
     ```cmd
     npm install
     ```
-- Copier ceux dans `.env.example` dans `.env` puis completer les informations
+- Copier ceux dans `.env.example` dans `.env` qui devra être d'abord créer puis completer les informations
     ```cmd
     cp .env.example .env
     ```
+- Changer le port que le server va écouter dans `www`
+  ``` www ligne 28
+    server.listen(3000); 
 
 ## Server
 Si vous voulez utiliser le live reload, installer en global *nodemon*
@@ -39,6 +42,7 @@ npm run start-front
 
 # Structure du projet
 ## Server 
+Dans le dossier `./server`
 ```
 +---bin // emplacement lancement server
 +---routes // emplacement des routes

@@ -63,5 +63,4 @@ typings/
 # package locker
 package-lock.json
 
-# add .angular
 .angular

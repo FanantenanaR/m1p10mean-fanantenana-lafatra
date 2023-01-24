@@ -1,3 +1,4 @@
+
 const moment = require('moment')
 
 const isDateValid = (daty) => {
@@ -13,11 +14,13 @@ const IS_VALID_EMAIL = "email";
 
 /**
  *
+
  * @param {string |  Number } value The value we need to check
  * @param {string} valueType The type to check.
  * @returns `true` if
  */
 const isInputValid = (value, valueType) => {
+
     try {
       if (value === undefined) {
           return false;

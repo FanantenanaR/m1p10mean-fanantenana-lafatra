@@ -8,16 +8,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ResponsableaccueilComponent } from './responsableaccueil/responsableaccueil.component';
 import { ResponsbleheaderComponent } from './responsbleheader/responsbleheader.component';
+import { LoginclientComponent } from './loginclient/loginclient.component';
+import { ClientaccueilComponent } from './clientaccueil/clientaccueil.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { LoginresponsableComponent } from './loginresponsable/loginresponsable.component';
+import { ResponsabledepotComponent } from './responsabledepot/responsabledepot.component';
 import { ClientinscriptionComponent } from './clientinscription/clientinscription.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
-
 
 @NgModule({
   declarations: [
     AppComponent,
     ResponsableaccueilComponent,
     ResponsbleheaderComponent,
+    LoginclientComponent,
+    ClientaccueilComponent,
+    LoginresponsableComponent,
+    ResponsabledepotComponent,
     ClientinscriptionComponent
   ],
   imports: [
@@ -26,6 +34,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    FormsModule,
     MatStepperModule
   ],
   providers: [],

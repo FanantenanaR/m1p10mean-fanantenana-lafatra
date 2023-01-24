@@ -32,14 +32,22 @@
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Enregistrement voiture</h4>
-                  <form class="form-sample">
+
+                  <div *ngIf="statusEnregistrementDepot === 200">
+                    <p>Enregistrement avec succès.</p>
+                  </div>
+                  <div *ngIf="statusEnregistrementDepot === 500 || statusEnregistrementDepot === 404">
+                    <p>Enregistrement échoué.</p>
+                  </div>
+
+                  <form [formGroup]="userForm" class="form-sample">
                     <br>
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Plaque voiture</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="plaque" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -54,7 +62,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nom</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="nom" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -62,7 +70,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Pénom</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="prenom" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -72,7 +80,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Tel</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="tel" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -80,7 +88,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">E-Mail</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="email" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -94,7 +102,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Nom</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="rNom" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -102,7 +110,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Pénom</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="rPrenom" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -112,7 +120,7 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">Tel</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="rTel" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
@@ -120,13 +128,13 @@
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label">E-Mail</label>
                           <div class="col-sm-9">
-                            <input type="text" class="form-control" />
+                            <input formControlName="rMail" type="text" class="form-control" />
                           </div>
                         </div>
                       </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button type="submit" class="btn btn-primary mr-2" (click)="enregistrerDepotVoiture()">Submit</button>
                     <button class="btn btn-light">Cancel</button>
                   </form>
                 </div>

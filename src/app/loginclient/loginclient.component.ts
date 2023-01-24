@@ -27,6 +27,11 @@ export class LoginclientComponent implements OnInit {
 
   statusError: any;
 
+  /**
+   * variable statusError: pour afficher les erreurs sy il y en a
+   * error 404: pas d'identification correspondant
+   * error 500: champs vide
+   */
   traitementLogin(){
     this.login = this.userForm.get('login')?.value;
     this.mdp = this.userForm.get('mdp')?.value;

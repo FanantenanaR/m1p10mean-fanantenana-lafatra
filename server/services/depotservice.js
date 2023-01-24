@@ -46,7 +46,11 @@ const enregistrementDepot = (request, response) => {
       });
 
       newDepot.save().then(() => {
-        response.status(200).send("Saved successfully");
+        const valeur = {
+          "status": 200,
+          "message": "Saved successfully"
+        };
+        response.status(200).send(valeur);
       }).catch((e) =>{
         console.log(`Error in enregistrement depot ${e}`, e);
         response.status(500).send("There is an error");

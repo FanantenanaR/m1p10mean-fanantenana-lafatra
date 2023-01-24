@@ -2,6 +2,9 @@ const checker = require('../helper/checker')
 const Client = require('../model/client');
 const Personnel = require('../model/personnel');
 
+/**
+  * express login client côté
+*/
 const traitementLoginClient = (request, response) => {
   const login = request.body.login;
   const mdp = request.body.mdp;
@@ -19,7 +22,7 @@ const traitementLoginClient = (request, response) => {
   console.log("mdp = "+mdp);
 
   new Client().collection.find({login: login, password: mdp}).toArray(function(err, result){
-    //if(err) throw err;
+    if(err) throw err;
     if(result.length == 1){
       const valeur = {
         "status": 200,
@@ -39,6 +42,9 @@ const traitementLoginClient = (request, response) => {
   });
 }
 
+/*
+* express login responsable
+*/
 const traitementLoginPersonnel = (request, response) => {
   const login = request.body.login;
   const mdp = request.body.mdp;

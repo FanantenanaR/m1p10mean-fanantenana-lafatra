@@ -15,6 +15,9 @@ import { LoginresponsableComponent } from './loginresponsable/loginresponsable.c
 import { ResponsabledepotComponent } from './responsabledepot/responsabledepot.component';
 import { ClientinscriptionComponent } from './clientinscription/clientinscription.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
+import { RespSideBarComponent } from './resp-side-bar/resp-side-bar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ClientaccueilComponent,
     LoginresponsableComponent,
     ResponsabledepotComponent,
-    ClientinscriptionComponent
+    ClientinscriptionComponent,
+    RespListeDepotComponent,
+    RespSideBarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

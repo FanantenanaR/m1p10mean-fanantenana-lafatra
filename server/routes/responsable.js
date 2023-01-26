@@ -6,7 +6,11 @@ let depot = require("../services/depotservice");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.sendFile('index.html', { root: './server/views' });
+  response.status(200).send("OK");
+});
+
+router.get("/health-check", (request, response) => {
+  response.status(200).send("OK");
 });
 
 
@@ -16,5 +20,11 @@ router.get('/', function(req, res, next) {
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
+
+router.post('/loginClient', traitementLogin.traitementLoginClient);
+
+router.post('/loginPersonnel', traitementLogin.traitementLoginPersonnel);
+
+router.post('/depot/enregistrementDepot', depot.enregistrementDepot);
 
 module.exports = router;

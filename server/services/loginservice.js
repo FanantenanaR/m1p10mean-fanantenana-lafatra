@@ -21,25 +21,27 @@ const traitementLoginClient = (request, response) => {
   console.log("login = "+login);
   console.log("mdp = "+mdp);
 
-  new Client().collection.find({login: login, password: mdp}).toArray(function(err, result){
-    if(err) throw err;
-    if(result.length == 1){
-      const valeur = {
-        "status": 200,
-        "message": result
-      };
-      response.status(200).send(valeur);
-    }
-    else{
+  new Client()
+    .collection
+    .findOne({login: login})
+    .then((result) => {
+      response.status(200).send(result);
+    }, (reason) => {
       const error = {
         "status": 404,
-        "messages": "Les valeurs n'existent pas",
+        "messages": reason,
         "errorType": "Data not found"
       };
       response.status(404).send(error);
-    }
+    }).catch((reason) => {
+      const error = {
+        "status": 404,
+        "messages": reason,
+        "errorType": "Data not found"
+      };
+      response.status(404).send(error);
+    });
 
-  });
 }
 
 /*

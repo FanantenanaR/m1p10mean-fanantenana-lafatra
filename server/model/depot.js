@@ -25,6 +25,12 @@ const DepotSchema = new mongoose.Schema(
             "email": String,
             "role": Number
         },
+        "etat": {
+          type: Number,
+          default: 0,
+          min: 0,
+          max: 10
+        }
     },
     {
         collection: "depot"

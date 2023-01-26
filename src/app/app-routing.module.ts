@@ -7,6 +7,7 @@ import { LoginresponsableComponent } from './loginresponsable/loginresponsable.c
 import { ClientinscriptionComponent } from './clientinscription/clientinscription.component';
 import { ResponsableaccueilComponent } from './responsableaccueil/responsableaccueil.component';
 import { ResponsabledepotComponent } from './responsabledepot/responsabledepot.component';
+import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
 
 const routes: Routes = [
   {path: 'respAccueil', component: ResponsableaccueilComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'clientAccueil', component: ClientaccueilComponent},
   {path: 'respEnregistrementDepot', component: ResponsabledepotComponent},
   {path: 'inscription', component: ClientinscriptionComponent},
+  {path: 'respListeDepot',component: RespListeDepotComponent}
 ];
 
 @NgModule({

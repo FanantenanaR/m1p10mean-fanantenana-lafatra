@@ -1,6 +1,7 @@
 const checker = require('../helper/checker')
 const Client = require('../model/client');
 const Personnel = require('../model/personnel');
+const bcrypt = require('bcryptjs');
 
 /**
   * express login client côté
@@ -16,31 +17,60 @@ const traitementLoginClient = (request, response) => {
       "errorType": "MissingField"
     };
     response.status(500).send(error);
+    return;
   }
 
-  console.log("login = "+login);
-  console.log("mdp = "+mdp);
+  try {
+    Client
+    .findOne({login: login}, (errorFind, resultat) => {
+      if(errorFind) {
+        console.log(errorFind)
+        const errorObj = {
+          "status": 404,
+          "messages": "Une erreur s'est produite. Veuillez reesayer plus tard.",
+          "errorType": "LoginException"
+        };
+        response.status(404).send(errorObj);
+        return;
+      }
+      bcrypt.compare(mdp, resultat.password, (errorCheck, isMatch) => {
+        if (errorCheck) {
+          console.log("error check", errorCheck);
+          const errorObj = {
+            "status": 404,
+            "messages": "Login ou mot de passe introuvable.",
+            "errorType": "UserNotFound"
+          };
+          response.status(404).send(errorObj);
+          return;
+        }
+        if (isMatch) {
+          const data = resultat;
+          data.password = undefined;
+          response.status(200).send(data);
+        } else {
+          const errorObj = {
+            "status": 404,
+            "messages": "Login ou mot de passe introuvable.",
+            "errorType": "UserNotFound"
+          };
+          response.status(404).send(errorObj);
+          return;
+        }
+      });
+    })
 
-  new Client()
-    .collection
-    .findOne({login: login})
-    .then((result) => {
-      response.status(200).send(result);
-    }, (reason) => {
-      const error = {
-        "status": 404,
-        "messages": reason,
-        "errorType": "Data not found"
-      };
-      response.status(404).send(error);
-    }).catch((reason) => {
-      const error = {
-        "status": 404,
-        "messages": reason,
-        "errorType": "Data not found"
-      };
-      response.status(404).send(error);
-    });
+  } catch (error) {
+    console.log(error)
+    const errorContent = {
+      "status": 404,
+      "messages": error,
+      "errorType": "Data not found"
+    };
+    response.status(404).send(errorContent);
+    return;
+  }
+
 
 }
 
@@ -58,28 +88,46 @@ const traitementLoginPersonnel = (request, response) => {
       "errorType": "MissingField"
     };
     response.status(500).send(error);
+    return;
   }
 
-  console.log("login = "+login);
-  console.log("mdp = "+mdp);
-
-  new Personnel().collection.find({login: login, password: mdp}).toArray(function(err, result){
-    if(err) throw err;
-    if(result.length == 1){
-      const valeur = {
-        "status": 200,
-        "message": result
-      };
-      response.status(200).send(valeur);
-    }
-    else{
-      const error = {
+  Personnel.findOne({login: login}, (errorFind, resultat) => {
+    if(errorFind) {
+      console.log(errorFind)
+      const errorObj = {
         "status": 404,
-        "messages": "Les valeurs n'existent pas",
-        "errorType": "Data not found"
+        "messages": "Une erreur s'est produite. Veuillez reesayer plus tard.",
+        "errorType": "LoginException"
       };
-      response.status(404).send(error);
+      response.status(404).send(errorObj);
+      return;
     }
+    bcrypt.compare(mdp, resultat.password, (errorCheck, isMatch) => {
+      if (errorCheck) {
+        console.log("error check", errorCheck);
+        const errorObj = {
+          "status": 404,
+          "messages": "Login ou mot de passe introuvable.",
+          "errorType": "UserNotFound"
+        };
+        response.status(404).send(errorObj);
+        return;
+      }
+      if (isMatch) {
+        const data = resultat;
+        data.password = undefined;
+        response.status(200).send(data);
+      } else {
+        const errorObj = {
+          "status": 404,
+          "messages": "Login ou mot de passe introuvable.",
+          "errorType": "UserNotFound"
+        };
+        response.status(404).send(errorObj);
+        return;
+      }
+    });
+
   });
 }
 

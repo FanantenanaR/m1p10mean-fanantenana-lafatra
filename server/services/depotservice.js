@@ -105,10 +105,41 @@ const enregistrementDepot = (request, response) => {
 }
 
 const vehiculeDepose = (request, response) => {
+  // TODO get all vehicule depose
 
+}
+
+const ajouterVehicule = (request, response) => {
+  // TODO ajouter un vehicule à un client
+}
+
+const ajouterReparation = (request, response) => {
+  // TODO ajouter reparation à un voiture
+}
+
+const listerReparation = (request, response) => {
+  // TODO lister reparation d'un voiture
+}
+
+const changementEtatReparationVoiture = (request, response) => {
+  // TODO entamer la reparation d'une voiture ou la terminer
+}
+
+const mesVehicule = (request, response) => {
+  // TODO get la liste de mes voitures
+}
+
+const suiviReparation = (request, response) => {
+  // TODO afficher les reparations d'un vehicule
 }
 
 module.exports = {
   enregistrementDepot,
-  vehiculeDepose
+  vehiculeDepose,
+  ajouterVehicule,
+  ajouterReparation,
+  listerReparation,
+  changementEtatReparationVoiture,
+  mesVehicule,
+  suiviReparation,
 }

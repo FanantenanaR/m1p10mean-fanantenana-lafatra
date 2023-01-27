@@ -50,7 +50,8 @@ const ClientSchema = new mongoose.Schema(
         },
         "password": {
             type: String,
-            required: true
+            required: true,
+            // select: false
         },
         "etatcompte": {
             type: Number,
@@ -88,10 +89,10 @@ ClientSchema.pre('save', async function(next) {
   }
 });
 
-ClientSchema.methods.comparePassword = (candidatePassword, cb) => {
+ClientSchema.methods.comparePassword = (candidatePassword, callback) => {
   bcrypt.compare(candidatePassword, this.password, (error, isMatch) => {
-    if (err) return cb(error);
-    cb(null, isMatch);
+    if (error) return callback(error);
+    callback(null, isMatch);
   });
 };
 

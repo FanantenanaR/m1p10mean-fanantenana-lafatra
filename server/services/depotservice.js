@@ -104,6 +104,11 @@ const enregistrementDepot = (request, response) => {
   });
 }
 
+const vehiculeDepose = (request, response) => {
+
+}
+
 module.exports = {
-  enregistrementDepot
+  enregistrementDepot,
+  vehiculeDepose
 }

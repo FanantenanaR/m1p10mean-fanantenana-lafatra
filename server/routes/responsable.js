@@ -27,4 +27,5 @@ router.post('/loginPersonnel', traitementLogin.traitementLoginPersonnel);
 
 router.post('/depot/enregistrementDepot', depot.enregistrementDepot);
 
+router.get("/voitures/depose", depot.vehiculeDepose);
 module.exports = router;

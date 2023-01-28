@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DepotserviceService } from '../depotservice.service';
+import { DepotserviceService } from '../services/depotservice.service';
 
 @Component({
   selector: 'app-responsabledepot',

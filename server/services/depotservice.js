@@ -2,6 +2,11 @@ const Voiture = require('../model/voiture');
 const checker = require("../helper/checker");
 const Depot = require("../model/depot");
 const Personnel = require('../model/personnel');
+const { request } = require('express');
+const Client = require('../model/client');
+const Reparation = require('../model/reparation');
+
+var ObjectID = require('mongodb').ObjectID;
 
 const enregistrementDepot = (request, response) => {
   const plaque = request.body.plaque;
@@ -56,42 +61,6 @@ const enregistrementDepot = (request, response) => {
         response.status(500).send("There is an error");
       });
 
-      // response.send(result[0]._id.toString());
-      // console.log(result[0]._id.toString());
-
-      //response.status(200).send(valeur);
-      //idVoiture = result[0]._id;
-      //response.send(depositeurNom);
-
-      /*new Personnel().collection.find({ Recepteur:{email: recepteurMail} }).toArray(function(error, results) {
-        if(error) throw error;
-        if(results.length == 1){
-          // const newDepot = new Depot({
-          //   "idVoiture": result[0]._id,
-          //   "Depositeur": {
-          //     "nom": depositeurNom,
-          //     "prenom": depositeurPrenom,
-          //     "tel": depositeurTel,
-          //     "email": depositeurMail
-          //   },
-          //   "Recepteur": {
-          //     "nom": results[0].nom,
-          //     "prenom": results[0].prenom,
-          //     "tel": results[0].tel,
-          //     "email": results[0].email,
-          //     "role": results[0].role
-          //   }
-          // });
-          // newDepot.save().then(() => {
-          //   response.status(200).send("Saved successfully");
-          // }).catch((e) =>{
-          //   console.log(`Error in inscrire ${e}`, e);
-          //   response.status(500).send("There is an error");
-          // })
-          response.status(200).send(results);
-        }
-      })*/
-
     }
     else{
       const error = {
@@ -104,6 +73,130 @@ const enregistrementDepot = (request, response) => {
   });
 }
 
+const historiqueVoiture = (request, response) => {
+  new Depot().collection.find().toArray(function(error, result) {
+    response.status(200).send(result);
+    console.log(result);
+  });
+}
+
+const historiqueVoitureClient = (request, response) => {
+  const idClient = request.body.idClient;
+
+  new Voiture().collection.find({ idClient: idClient }).toArray(function(err, result){
+    var idVoiture = "";
+    //response.send(result);
+    if(err) throw err;
+    result.forEach(data => {
+      //response.send(data._id);
+      idVoiture = data[0]._id.toString();
+      //console.log(idVoiture);
+    });
+    new Depot().collection.find({ idVoiture: idVoiture }).toArray(function (error, res){
+      console.log(res);
+      if(res.length == 0){
+        const message = {
+          "status": 404,
+          "message": "Aucune voiture à votre nom n'a été enregistrée."
+        }
+        response.status(404).send(message);
+      } else {
+        const message = {
+          "status": 200,
+          "message": res
+        }
+        response.status(200).send(message);
+      }
+    });
+  })
+}
+
+const listeVoiture = (request, response) => {
+  new Voiture().collection.find().toArray(function(error, res){
+    console.log(res);
+    const message = {
+      "status": 200,
+      "message": res
+    }
+    response.status(200).send(message);
+  })
+}
+
+const proprietaireVoiture = (request, response) => {
+  const idVoiture = new ObjectID(request.body.idVoiture);
+
+
+  new Voiture().collection.find({ "_id": idVoiture }).toArray(function(err, res){
+    const idClient = new ObjectID(res[0].idClient);
+    new Client().collection.find({ "_id": idClient }).toArray(function(error, result){
+      const message = {
+        "status": 200,
+        "aboutVoiture": res,
+        "aboutProprietaire": result
+      }
+      response.status(200).send(message);
+    })
+  })
+}
+
+//tsy miasa
+const historiqueDepotEtReparation = (request, response) => {
+  const idVoiture = request.body.idVoiture;
+  new Depot().collection.find({ idVoiture: idVoiture }).toArray(function (error, result){
+    result.forEach(data => {
+      const idDepot = data._id.toString();
+      console.log(idDepot);
+      new Reparation().collection.find({ idDepot: idDepot }).toArray(function(err, res){
+        if(result.length == 0){
+          const message = {
+            "status": 404,
+            "message": "Cette voiture n'a pas été encore enregistrée."
+          };
+          response.status(404).send(message);
+        } else {
+          if(res.length == 0){
+            const message = {
+              "status": 404,
+              "message": "Cette voiture n'a pas été encore entamée une réparation."
+            }
+          } else {
+            const message = {
+              "status": 200,
+              "depot": result,
+              "reparation": res
+            };
+            response.status(200).send(message);
+          }
+        }
+      })
+    });
+  });
+}
+
+const historiqueReparation = (request, response) => {
+  const idVoiture = request.body.idVoiture;
+  new Reparation().collection.find({ idVoiture: idVoiture }).toArray(function(err, res){
+    if(res.length == 0){
+      const message = {
+        "status": 404,
+        "message": "Cette voiture n'a pas été encore entamée une réparation."
+      }
+      response.status(404).send(message);
+    } else {
+      const message = {
+        "status": 200,
+        "message": res
+      }
+      response.status(200).send(message);
+    }
+  })
+}
+
 module.exports = {
-  enregistrementDepot
+  enregistrementDepot,
+  historiqueVoiture,
+  historiqueVoitureClient,
+  listeVoiture,
+  historiqueReparation,
+  proprietaireVoiture
 }

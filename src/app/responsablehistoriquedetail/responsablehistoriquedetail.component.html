@@ -1,0 +1,145 @@
+<app-responsbleheader></app-responsbleheader>
+<body>
+  <div class="container-scroller">
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="respEnregistrementDepot">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Engistrement voiture</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="historiqueReparation">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Historique</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+
+        <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card position-relative">
+                <div class="card-body">
+                  <p class="card-title">a propos de la voiture</p>
+                  <div class="row">
+
+                    <div class="col-md- col-xl-9">
+                      <div class="row">
+
+                        <div class="col-md-6 col-xl-7">
+                          <div class="table-responsive mb-3 mb-md-0">
+                            <h4 class="card-description">
+                              Propriétaire
+                            </h4>
+                            <table class="table table-borderless report-table">
+                              <tr>
+                                <td class="text-muted">Nom: </td>
+                                <td class="w-100 px-0"> {{ proprietaire[0].nom }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Prénom: </td>
+                                <td class="w-100 px-0"> {{ proprietaire[0].prenom }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Téléphone: </td>
+                                <td class="w-100 px-0"> {{ proprietaire[0].tel }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Email: </td>
+                                <td class="w-100 px-0"> {{ proprietaire[0].email }}</td>
+                              </tr>
+                            </table>
+                          </div>
+
+
+                        </div>
+                        <div class="col-md-12 col-xl-3 d-flex flex-column justify-content-center">
+                          <div class="ml-xl-4">
+                            <div class="table-responsive mb-3 mb-md-0">
+                              <h4 class="card-description">
+                                Voiture
+                              </h4>
+                              <table class="table table-borderless report-table">
+                                <tr>
+                                  <td class="text-muted">Plaque: </td>
+                                  <td class="w-100 px-0"> {{ voiture[0].plaque }}</td>
+                                </tr>
+                                <tr>
+                                  <td class="text-muted">Marque: </td>
+                                  <td class="w-100 px-0"> {{ voiture[0].marque }}</td>
+                                </tr>
+                                <tr>
+                                  <td class="text-muted">Modèle: </td>
+                                  <td class="w-100 px-0"> {{ voiture[0].modele }}</td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-7 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <p class="card-title mb-0">Historique reparation</p>
+                  <div class="table-responsive">
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Reparation</th>
+                          <th>Date</th>
+                          <th>Responsable</th>
+                          <th>Prix(Ar)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let reparation of listeReparation">
+                          <td>{{ reparation.aReparer }}</td>
+                          <td>{{ reparation.dateCommencement | date}}</td>
+                          <td>{{ reparation.Responsable.prenom }}</td>
+                          <td>{{ reparation.prixAPayer | number }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard templates</a> from Bootstrapdash.com</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+
+</body>

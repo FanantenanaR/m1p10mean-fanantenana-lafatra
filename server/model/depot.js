@@ -12,6 +12,12 @@ const DepotSchema = new mongoose.Schema(
             type: Date,
             default: Date.now
         },
+        "etat": {
+          type: Number,
+          default: 0,
+          min: 0,
+          max: 5
+        },
         "Depositeur": {
             "nom": String,
             "prenom": String,

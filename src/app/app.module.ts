@@ -15,6 +15,10 @@ import { LoginresponsableComponent } from './loginresponsable/loginresponsable.c
 import { ResponsabledepotComponent } from './responsabledepot/responsabledepot.component';
 import { ClientinscriptionComponent } from './clientinscription/clientinscription.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HistoriqueClientComponent } from './historique-client/historique-client.component';
+import { ClientheaderComponent } from './clientheader/clientheader.component';
+import { ResponsablehistoriquereparationComponent } from './responsablehistoriquereparation/responsablehistoriquereparation.component';
+import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedetail/responsablehistoriquedetail.component';
 import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
 import { RespSideBarComponent } from './resp-side-bar/resp-side-bar.component';
 import { FooterComponent } from './footer/footer.component';
@@ -29,6 +33,10 @@ import { FooterComponent } from './footer/footer.component';
     LoginresponsableComponent,
     ResponsabledepotComponent,
     ClientinscriptionComponent,
+    HistoriqueClientComponent,
+    ClientheaderComponent,
+    ResponsablehistoriquereparationComponent,
+    ResponsablehistoriquedetailComponent
     RespListeDepotComponent,
     RespSideBarComponent,
     FooterComponent

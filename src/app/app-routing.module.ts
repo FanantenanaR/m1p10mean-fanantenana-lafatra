@@ -7,6 +7,10 @@ import { LoginresponsableComponent } from './loginresponsable/loginresponsable.c
 import { ClientinscriptionComponent } from './clientinscription/clientinscription.component';
 import { ResponsableaccueilComponent } from './responsableaccueil/responsableaccueil.component';
 import { ResponsabledepotComponent } from './responsabledepot/responsabledepot.component';
+import { HistoriqueClientComponent } from './historique-client/historique-client.component';
+import { ClientheaderComponent } from './clientheader/clientheader.component';
+import { ResponsablehistoriquereparationComponent } from './responsablehistoriquereparation/responsablehistoriquereparation.component';
+import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedetail/responsablehistoriquedetail.component';
 import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
 
 const routes: Routes = [
@@ -16,6 +20,10 @@ const routes: Routes = [
   {path: 'clientAccueil', component: ClientaccueilComponent},
   {path: 'respEnregistrementDepot', component: ResponsabledepotComponent},
   {path: 'inscription', component: ClientinscriptionComponent},
+  {path: 'clientHistorique', component: HistoriqueClientComponent},
+  {path: 'clients', component: ClientheaderComponent},
+  {path: 'historiqueReparation', component: ResponsablehistoriquereparationComponent},
+  {path: 'historiqueReparation/voiture/:idVoiture', component: ResponsablehistoriquedetailComponent}
   {path: 'respListeDepot',component: RespListeDepotComponent}
 ];
 

@@ -20610,7 +20610,7 @@ dl li {
 /* Sidebar */
 .sidebar {
   min-height: calc(100vh - 70px);
-  background: #dddce1;
+  background: #00005C;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   padding: 0;

@@ -17,7 +17,8 @@ const reparationSchema = new mongoose.Schema(
           "email": String
         },
         "idDepot": {
-          type: String
+          type: String,
+          required: true,
         },
         "dateCommencement": {
           type: Date
@@ -25,16 +26,19 @@ const reparationSchema = new mongoose.Schema(
         "avancement": {
           type: Number,
           min: 0,
-          max: 100
+          max: 100,
+          default: 0,
         },
         "prixAPayer": {
           type: Number,
-          required: true
+          required: true,
+          min: 0,
         },
         "etat": {
           type: Number,
           min: 0,
-          max: 10
+          max: 10,
+          default: 0,
         },
         "dateFin": {
           type: Date

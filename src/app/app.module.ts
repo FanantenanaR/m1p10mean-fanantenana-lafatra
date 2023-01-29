@@ -19,6 +19,9 @@ import { HistoriqueClientComponent } from './historique-client/historique-client
 import { ClientheaderComponent } from './clientheader/clientheader.component';
 import { ResponsablehistoriquereparationComponent } from './responsablehistoriquereparation/responsablehistoriquereparation.component';
 import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedetail/responsablehistoriquedetail.component';
+import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
+import { RespSideBarComponent } from './resp-side-bar/resp-side-bar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +37,9 @@ import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedet
     ClientheaderComponent,
     ResponsablehistoriquereparationComponent,
     ResponsablehistoriquedetailComponent
+    RespListeDepotComponent,
+    RespSideBarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

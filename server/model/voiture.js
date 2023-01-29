@@ -15,7 +15,8 @@ const VoitureSchema = new mongoose.Schema(
             required: true
         },
         "idClient": {
-            type: Number
+            type: String,
+            required: true
         }
     },
     {

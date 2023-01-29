@@ -25,7 +25,17 @@ router.post('/loginClient', traitementLogin.traitementLoginClient);
 
 router.post('/loginPersonnel', traitementLogin.traitementLoginPersonnel);
 
+router.post("/depot/enregistrementVehicule", depot.ajouterVehicule);
+
 router.post('/depot/enregistrementDepot', depot.enregistrementDepot);
+
+router.post('/depot/ajouterReparation', depot.ajouterReparation);
+
+router.post('/depot/assignerReparation', depot.assignerReparation );
+
+router.post("/depot/entamerReparation", depot.entamerReparation);
+
+router.post("/depot/updateAvancement", depot.updateAvancementReparation);
 
 router.get("/voitures/depose", depot.vehiculeDepose);
 module.exports = router;

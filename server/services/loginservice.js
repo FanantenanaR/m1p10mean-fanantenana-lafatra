@@ -33,31 +33,41 @@ const traitementLoginClient = (request, response) => {
         response.status(404).send(errorObj);
         return;
       }
-      bcrypt.compare(mdp, resultat.password, (errorCheck, isMatch) => {
-        if (errorCheck) {
-          console.log("error check", errorCheck);
-          const errorObj = {
-            "status": 404,
-            "messages": "Login ou mot de passe introuvable.",
-            "errorType": "UserNotFound"
-          };
-          response.status(404).send(errorObj);
-          return;
-        }
-        if (isMatch) {
-          const data = resultat;
-          data.password = undefined;
-          response.status(200).send(data);
-        } else {
-          const errorObj = {
-            "status": 404,
-            "messages": "Login ou mot de passe introuvable.",
-            "errorType": "UserNotFound"
-          };
-          response.status(404).send(errorObj);
-          return;
-        }
-      });
+      if (resultat) {
+        bcrypt.compare(mdp, resultat.password, (errorCheck, isMatch) => {
+          if (errorCheck) {
+            console.log("error check", errorCheck);
+            const errorObj = {
+              "status": 404,
+              "messages": "Login ou mot de passe introuvable.",
+              "errorType": "UserNotFound"
+            };
+            response.status(404).send(errorObj);
+            return;
+          }
+          if (isMatch) {
+            const data = resultat;
+            data.password = undefined;
+            response.status(200).send(data);
+          } else {
+            const errorObj = {
+              "status": 404,
+              "messages": "Login ou mot de passe introuvable.",
+              "errorType": "UserNotFound"
+            };
+            response.status(404).send(errorObj);
+            return;
+          }
+        });
+      } else {
+        const errorObj = {
+          "status": 403,
+          "messages": "Login ou mot de passe introuvable.",
+          "errorType": "UserNotFound"
+        };
+        response.status(403).send(errorObj);
+        return;
+      }
     })
 
   } catch (error) {
@@ -102,31 +112,42 @@ const traitementLoginPersonnel = (request, response) => {
       response.status(404).send(errorObj);
       return;
     }
-    bcrypt.compare(mdp, resultat.password, (errorCheck, isMatch) => {
-      if (errorCheck) {
-        console.log("error check", errorCheck);
-        const errorObj = {
-          "status": 404,
-          "messages": "Login ou mot de passe introuvable.",
-          "errorType": "UserNotFound"
-        };
-        response.status(404).send(errorObj);
-        return;
-      }
-      if (isMatch) {
-        const data = resultat;
-        data.password = undefined;
-        response.status(200).send(data);
-      } else {
-        const errorObj = {
-          "status": 404,
-          "messages": "Login ou mot de passe introuvable.",
-          "errorType": "UserNotFound"
-        };
-        response.status(404).send(errorObj);
-        return;
-      }
-    });
+    if (resultat) {
+
+      bcrypt.compare(mdp, resultat.password, (errorCheck, isMatch) => {
+        if (errorCheck) {
+          console.log("error check", errorCheck);
+          const errorObj = {
+            "status": 404,
+            "messages": "Login ou mot de passe introuvable.",
+            "errorType": "UserNotFound"
+          };
+          response.status(404).send(errorObj);
+          return;
+        }
+        if (isMatch) {
+          const data = resultat;
+          data.password = undefined;
+          response.status(200).send(data);
+        } else {
+          const errorObj = {
+            "status": 404,
+            "messages": "Login ou mot de passe introuvable.",
+            "errorType": "UserNotFound"
+          };
+          response.status(404).send(errorObj);
+          return;
+        }
+      });
+    } else {
+      const errorObj = {
+        "status": 404,
+        "messages": "Login ou mot de passe introuvable.",
+        "errorType": "UserNotFound"
+      };
+      response.status(404).send(errorObj);
+      return;
+    }
 
   });
 }

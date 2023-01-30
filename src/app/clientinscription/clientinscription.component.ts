@@ -75,6 +75,7 @@ export class ClientinscriptionComponent implements OnInit {
       ).subscribe((data: any) => {
         if (data.status === 200) {
           console.log(data);
+          window.location.href = "clientAccueil";
         }
       }, (error: any) => {
         console.log("error ", error);

@@ -39,12 +39,12 @@ export class LoginclientComponent implements OnInit {
     this.loginService.loginClient(this.login, this.mdp).subscribe(
       (data: any) => {
 
-        if(data.status == 200){
 
-          localStorage.setItem('idClient',data.message[0]._id);
-          window.location.href = "clientAccueil";
-          console.log(data.message[0]._id);
-        }
+
+        localStorage.setItem('idClient',data._id);
+        window.location.href = "clientAccueil";
+        console.log(data._id);
+
       }, (error: any) => {
         console.log(error.status);
         if(error.status == 404){

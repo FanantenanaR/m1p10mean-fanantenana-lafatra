@@ -12,6 +12,7 @@ const depotWorker = require("../function/depotworker");
 const moment = require('moment');
 
 const async = require('async');
+const Facture = require('../model/facture');
 
 const enregistrementDepot = (request, response) => {
   const plaque = request.body.plaque;
@@ -523,12 +524,55 @@ const ajouterReparation = (request, response) => {
                 avancement: 0
               });
               addMe.save().then(() => {
-                const successMessage = {
-                  "status": 200,
-                  "message": "Ajout réparation fait avec succes."
-                }
-                response.status(200).send(successMessage);
-                return;
+                Voiture.findById(resultatDepot.idVoiture, (errorFindVoiture, resultatVoiture) => {
+                  if (errorFindVoiture) {
+                    const errorMessage = {
+                      "status": 500,
+                      "message": "Une erreur s'est produite (voiture).",
+                      "errorType": "ErrorDuplicate"
+                    };
+                    response.status(500).send(errorMessage);
+                    return;
+                  }
+                  Reparation.find({idDepot: idDepot}, (errorFindReparation, resultatReparation) => {
+                    if (errorFindReparation) {
+                      const errorMessage = {
+                        "status": 500,
+                        "message": "Une erreur s'est produite (reparation).",
+                        "errorType": "ErrorDuplicate"
+                      };
+                      response.status(500).send(errorMessage);
+                      return;
+                    }
+                    let tableauDetailsFacture = [];
+                    let totalPrix = 0;
+                    resultatReparation.forEach((reparation) => {
+                      tableauDetailsFacture.push({
+                        libelle: reparation.aReparer,
+                        prix: reparation.prixAPayer
+                      });
+                      totalPrix += parseInt(reparation.prixAPayer);
+                    });
+                    const addFacture = new Facture({
+                      idClient: resultatVoiture.idClient,
+                      idVoiture: resultatDepot.idVoiture,
+                      idDepot: idDepot,
+                      detailFacture: tableauDetailsFacture,
+                      total: totalPrix
+                    })
+                    addFacture.save().then(() => {
+                      const successMessage = {
+                        "status": 200,
+                        "message": "Ajout réparation fait avec succes."
+                      }
+                      response.status(200).send(successMessage);
+                      return;
+                    }).catch((errorFacture) => {
+
+                    });
+
+                  } )
+                });
               }).catch((errorSave) => {
                 console.log("find reparation", errorSave);
                 const errorMessage = {
@@ -834,7 +878,7 @@ const updateAvancementReparation = (request, response) => {
     return;
   }
 
-  const etat = avancement === "100" ? 5 : 0;
+  const etat = parseInt(avancement) === 100 ? 5 : 0;
   let updateMe = {
     avancement: avancement,
     etat: etat

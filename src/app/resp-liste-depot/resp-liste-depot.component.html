@@ -22,7 +22,8 @@
                 </p>
               </mat-card-content>
               <mat-card-actions align="end">
-                <a mat-stroked-button color="accent" [href]="'depot/'+depot._id" >Voir</a>
+                <a mat-raised-button color="primary" href="responsableVoitureDeposee/detail/{{ depot._id }}">Faire sortir</a>
+                <a mat-raised-button color="accent" [href]="'depot/'+depot._id" >Voir avancement</a>
               </mat-card-actions>
             </mat-card>
             <!-- <mat-card ngClass="p-0 border shadow" style="border-radius: 20px;">

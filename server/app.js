@@ -43,7 +43,7 @@ app.use('/api-sortie', sortieRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/depot', depotRouter);
 app.use('/api/client', clientRouter);
-app.use('/api/login', loginRouter);
+app.use('/api-login', loginRouter);
 app.use('/api/responsable', responableRouter );
 app.use('/api/historique', historiqueRouter);
 

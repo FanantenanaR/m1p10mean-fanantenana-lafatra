@@ -18,13 +18,12 @@
               <div class="col-md-12 item" style="align-items: center;">
                 <div class="down-content" >
                   <h3 style="color: black;">Voir les historiques des facture disponibles sur ces voitures</h3>
-                  <select [(ngModel)]="selectedCar" class="form-select" aria-label="Default select example" style="min-height: 50px; min-width: 250px;">
+                  <select [(ngModel)]="selectedCar" class="form-select rounded" aria-label="Default select example" style="min-height: 50px; min-width: 250px;">
                       <option *ngFor="let liste of listevoitureClient" [value]="liste._id">
                         {{ liste.plaque }} - {{ liste.modele }} - {{ liste.marque }}
                       </option>
                   </select>
-                  <p style="color: black;">{{ selectedCar }}</p>
-                  <a href="clientHistorique/depot/{{ selectedCar }}"><button type="button" class="btn btn-primary" style="min-height: 50px;">Voir</button></a>
+                  <a mat-raised-button color="primary" href="clientHistorique/depot/{{ selectedCar }}" class="ml-4 mt-4">Voir</a>
                   </div>
               </div>
             </div>

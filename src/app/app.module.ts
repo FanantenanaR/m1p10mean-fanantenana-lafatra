@@ -60,7 +60,7 @@ import { ResponsableDepotDetailsComponent } from './responsable-depot-details/re
     ResponsablefactureComponent,
     ResponsablefacturedetailComponent,
     ResponsablevoituredepotComponent,
-    ResponsableDetailDepotVoitureComponent
+    ResponsableDetailDepotVoitureComponent,
     RespListeDepotComponent,
     RespSideBarComponent,
     FooterComponent,

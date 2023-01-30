@@ -192,8 +192,18 @@ export class ResponsableDepotDetailsComponent implements OnInit {
   }
 
 
-  updateAvancement(): void {
-
+  updateAvancement(idReparation: string): void {
+    this.depotService.mettreAjourAvancement(idReparation, 100).subscribe((resultat) => {
+      this._snackBar.open("Mise à jour réussite.", "", {
+        duration: 500
+      });
+      this.getListReparationEncours();
+      this.getListReparationTermine();
+    }, (error) => {
+      this._snackBar.open("Une erreur s'est produite pour la mise à jour avancement.", "", {
+        duration: 500
+      })
+    });
   }
 
 

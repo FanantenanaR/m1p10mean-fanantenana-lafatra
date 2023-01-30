@@ -35,9 +35,10 @@ const routes: Routes = [
   {path: 'responsableFacture', component: ResponsablefactureComponent},
   {path: 'responsableFacture/facture/:idFacture/:idDepot', component: ResponsablefacturedetailComponent},
   {path: 'responsableVoitureDeposee', component: ResponsablevoituredepotComponent},
-  {path: 'responsableVoitureDeposee/detail/:idDepot', component: ResponsableDetailDepotVoitureComponent}
+  {path: 'responsableVoitureDeposee/detail/:idDepot', component: ResponsableDetailDepotVoitureComponent},
   {path: 'depot/:idDepot', component: ResponsableDepotDetailsComponent},
-  {path: 'respListeDepot',component: RespListeDepotComponent}
+  {path: 'respListeDepot',component: RespListeDepotComponent},
+  {path: "**", redirectTo: "clientAccueil"}
 ];
 
 @NgModule({

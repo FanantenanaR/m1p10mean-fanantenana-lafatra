@@ -91,6 +91,15 @@ export class DepotserviceService {
     return this.http.post(this.urlBase+this.urlSuite, data);
   }
 
+  mettreAjourAvancement(idReparation: string, avancement: number) {
+    this.urlSuite = 'updateAvancement';
+    const data = {
+      idReparation: idReparation,
+      avancement: avancement
+    };
+    return this.http.post(this.urlBase+this.urlSuite, data);
+  }
+
   getResponsable() {
     this.urlSuite = 'listerResponsable';
     return this.http.get(this.urlBase+this.urlSuite);

@@ -192,5 +192,10 @@ export class ResponsableDepotDetailsComponent implements OnInit {
   }
 
 
+  updateAvancement(): void {
+
+  }
+
+
 
 }

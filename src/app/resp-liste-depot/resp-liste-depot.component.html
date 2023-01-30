@@ -4,6 +4,28 @@
   <div class="container-fluid page-body-wrapper">
     <!-- partial:partials/_sidebar.html -->
     <app-resp-side-bar></app-resp-side-bar>
+    <div class="container-fluid p-5">
+      <div class="display-2 text-center">Dépot</div>
+      <p class="font-thin text-center ">Ci-dessous la liste des véhicules dans l'atelier.</p>
+      <div *ngFor="let depot of listeDepot" class="row p-2">
+          <div class="col-md-3">
+            <mat-card ngClass="p-0 border shadow" style="border-radius: 20px;">
+              <div class="p-2">
+                <a [href]="'depot/'+depot._id" ngClass="h3 mt-4 text-center text-primary">{{depot.voiture.modele}} - {{depot.voiture.marque}}</a>
+                <hr/>
+                <p class="font-thin">Déposé le <b class="mx-2 h4">{{depot.dateHeure}}</b></p>
+                <p>
+                  <span class="font-thin">Proprietaire:</span>
+                  <b class="mx-2 h4">{{depot.client.nom}} {{depot.client.prenom}}</b>
+                </p>
+              </div>
+              <mat-card-actions align="start">
+                <button class="text-center py-1 px-4 bg-dark text-white display-4" (click)="goTo(depot._id)">{{depot.voiture.plaque}}</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+      </div>
+    </div>
   </div>
   <!-- page-body-wrapper ends -->
 </div>

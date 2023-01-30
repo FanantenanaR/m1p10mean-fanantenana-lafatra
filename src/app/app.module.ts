@@ -4,6 +4,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatSelectModule} from '@angular/material/select';
+import {MatListModule} from '@angular/material/list';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSliderModule} from '@angular/material/slider';
+
 
 import { ResponsableaccueilComponent } from './responsableaccueil/responsableaccueil.component';
 import { ResponsbleheaderComponent } from './responsbleheader/responsbleheader.component';
@@ -22,6 +35,7 @@ import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedet
 import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
 import { RespSideBarComponent } from './resp-side-bar/resp-side-bar.component';
 import { FooterComponent } from './footer/footer.component';
+import { ResponsableDepotDetailsComponent } from './responsable-depot-details/responsable-depot-details.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +50,11 @@ import { FooterComponent } from './footer/footer.component';
     HistoriqueClientComponent,
     ClientheaderComponent,
     ResponsablehistoriquereparationComponent,
-    ResponsablehistoriquedetailComponent
+    ResponsablehistoriquedetailComponent,
     RespListeDepotComponent,
     RespSideBarComponent,
-    FooterComponent
+    FooterComponent,
+    ResponsableDepotDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +63,19 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
+    DragDropModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatListModule,
+    MatIconModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

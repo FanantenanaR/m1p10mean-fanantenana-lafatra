@@ -7,6 +7,7 @@ import { DepotserviceService } from '../services/depotservice.service';
   templateUrl: './responsabledepot.component.html',
   styleUrls: ['./responsabledepot.component.css']
 })
+
 export class ResponsabledepotComponent implements OnInit {
   public userForm: FormGroup;
   plaque: string = "";

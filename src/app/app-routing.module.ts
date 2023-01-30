@@ -12,6 +12,7 @@ import { ClientheaderComponent } from './clientheader/clientheader.component';
 import { ResponsablehistoriquereparationComponent } from './responsablehistoriquereparation/responsablehistoriquereparation.component';
 import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedetail/responsablehistoriquedetail.component';
 import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
+import { ResponsableDepotDetailsComponent } from './responsable-depot-details/responsable-depot-details.component';
 
 const routes: Routes = [
   {path: 'respAccueil', component: ResponsableaccueilComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'clientHistorique', component: HistoriqueClientComponent},
   {path: 'clients', component: ClientheaderComponent},
   {path: 'historiqueReparation', component: ResponsablehistoriquereparationComponent},
-  {path: 'historiqueReparation/voiture/:idVoiture', component: ResponsablehistoriquedetailComponent}
+  {path: 'historiqueReparation/voiture/:idVoiture', component: ResponsablehistoriquedetailComponent},
+  {path: 'depot/:idDepot', component: ResponsableDepotDetailsComponent},
   {path: 'respListeDepot',component: RespListeDepotComponent}
 ];
 

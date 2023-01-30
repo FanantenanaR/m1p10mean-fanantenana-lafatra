@@ -21,7 +21,8 @@ const reparationSchema = new mongoose.Schema(
           required: true,
         },
         "dateCommencement": {
-          type: Date
+          type: Date,
+          default: null
         },
         "avancement": {
           type: Number,
@@ -41,7 +42,8 @@ const reparationSchema = new mongoose.Schema(
           default: 0,
         },
         "dateFin": {
-          type: Date
+          type: Date,
+          default: null
         }
     },
     {

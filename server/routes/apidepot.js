@@ -4,20 +4,30 @@ var router = express.Router();
 
 let depot = require('../services/depotservice')
 
-router.get("/", (request, response) => {
-  response.status(200).send("OK api-depot");
-});
+router.get("/", depot.vehiculeDepose);
 
-router.post("/depot/enregistrementDepot", depot.enregistrementDepot);
+router.post("/enregistrementVehicule", depot.ajouterVehicule);
 
-router.get("/historique/historique", depot.historiqueVoiture);
+router.post('/enregistrementDepot', depot.enregistrementDepot);
 
-router.post("/historique/historiqueClient", depot.historiqueVoitureClient);
+router.post('/detailsDepot', depot.detailsDepot);
 
-router.get("/historique/voiture/liste", depot.listeVoiture);
+router.post('/ajouterReparation', depot.ajouterReparation);
 
-router.post("/historique/ownerCar", depot.proprietaireVoiture);
+router.post('/assignerReparation', depot.assignerReparation );
 
-router.post("/historique/detail", depot.historiqueReparation);
+router.post("/entamerReparation", depot.entamerReparation);
+
+router.post("/updateAvancement", depot.updateAvancementReparation);
+
+router.post("/listeReparation", depot.listerReparation);
+
+router.post("/listeReparationNonEntamer", depot.listerReparationNonEntamer);
+
+router.post("/listeReparationEncours", depot.listerReparationEncours);
+
+router.post("/listeReparationTermine", depot.listerReparationTermine);
+
+router.get("/listerResponsable", depot.getResponsable);
 
 module.exports = router;

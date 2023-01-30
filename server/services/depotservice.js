@@ -2,10 +2,14 @@ const Voiture = require('../model/voiture');
 const checker = require("../helper/checker");
 const Depot = require("../model/depot");
 const Personnel = require('../model/personnel');
-var ObjectID = require('mongodb').ObjectID;
+const ObjectID = require('mongoose').Schema.Types.ObjectId;
 const Client = require('../model/client');
 const Reparation = require('../model/reparation');
+const depotWorker = require("../function/depotworker");
 const moment = require('moment');
+
+const async = require('async');
+
 const enregistrementDepot = (request, response) => {
   const plaque = request.body.plaque;
 
@@ -89,6 +93,52 @@ const enregistrementDepot = (request, response) => {
   });
 }
 
+const detailsDepot = (request, response) => {
+  const idDepot = request.body.idDepot;
+  Depot.findById(idDepot, (errorFind, resultatDepot) => {
+    if (errorFind || !resultatDepot) {
+      const messageError = {
+        "status": 500,
+        "message": "Une erreur s'est produite",
+        "errorType": "ErrorServer"
+      }
+      response.status(500).send(messageError);
+      return;
+    }
+    Reparation.find({
+      idDepot: idDepot,
+      dateCommencement: {
+        $ne: null
+      }
+    }, (errorReparation, resultatReparation) => {
+      let sommeAvancement = 0;
+      let sommeTempsReparation = 0;
+      let nombreTemps = 0;
+      console.log(resultatReparation);
+      resultatReparation.forEach((reparation) => {
+        sommeAvancement += reparation.avancement;
+        if (reparation.dateFin !== null) {
+          const difference = moment.duration(moment(reparation.dateFin).diff(moment(reparation.dateCommencement)));
+          sommeTempsReparation += difference.hours();
+          nombreTemps += 1;
+        }
+      });
+
+      Voiture.findById(resultatDepot.idVoiture, (errorFind, resultatVoiture) => {
+        const resultatFinal = {
+          "depot": resultatDepot,
+          "sommeAvancement": sommeAvancement,
+          "moyenneAvancement": sommeAvancement === 0 ? 0 : sommeAvancement / resultatDepot.length,
+          "sommeTempsReparation": sommeTempsReparation,
+          "moyenneAvancement": sommeTempsReparation === 0 ? 0 : sommeTempsReparation / nombreTemps,
+          "voiture": resultatVoiture
+        };
+        response.status(200).send(resultatFinal);
+        return;
+      })
+    })
+  } )
+}
 
 const historiqueVoiture = (request, response) => {
   new Depot().collection.find().toArray(function(error, result) {
@@ -207,10 +257,49 @@ const historiqueReparation = (request, response) => {
       response.status(200).send(message);
     }
   })
+}
 
 const vehiculeDepose = (request, response) => {
-  // TODO get all vehicule depose
+  Depot.find({
+    etat: 0
+  }, async (errorFind, resultatDepot) => {
+    if (errorFind) {
+      const messageError = {
+        "status": 500,
+        "message": "Une erreur s'est produite.",
+        "errorType": "ErrorServer"
+      }
+      response.status(500).send(messageError);
+      return;
+    }
+    if (resultatDepot) {
+      let tableau = resultatDepot;
+      let resultat = [];
+      for (let depot of tableau) {
+        console.log("entered in", depot);
+        const voiture = await Voiture.findById(depot.idVoiture);
+        const client = await Client.findById(voiture.idClient);
+        client.password = null;
+        const addMe = {
+          _id: depot._id,
+          Depositeur: depot.Depositeur,
+          Recepteur: depot.Recepteur,
+          etat: depot.etat,
+          dateHeure: depot.dateHeure,
+          idVoiture: depot.idVoiture,
+          voiture: voiture,
+          client: client,
+          __v: depot.__v
+        }
+        resultat.push(addMe);
+      }
+      response.status(200).send(resultat);
+      return;
+    } else {
+      response.status(200).send([]);
+    }
 
+  })
 }
 
 const ajouterVehicule = (request, response) => {
@@ -532,8 +621,125 @@ const assignerReparation = (request, response) => {
 };
 
 const listerReparation = (request, response) => {
-  // TODO lister reparation d'un voiture
+  const idDepot = request.body.idDepot;
+  if (!checker.isInputValid(idDepot, checker.IS_EMPTY_STRING)) {
+    const errorMessage = {
+      "status": 500,
+      "message": "Champs obligatoire introuvable.",
+      "errorType": "InvalidField"
+    };
+    response.status(500).send(errorMessage);
+    return;
+  }
 
+  Reparation.find({
+    idDepot: idDepot
+  }, (errorFind, resultat) => {
+    if (errorFind) {
+      console.log("Update entamer reparation",errorFind);
+      const errorMessage = {
+        "status": 500,
+        "message": "Une erreur s'est produite.",
+        "errorType": "ErrorServer"
+      };
+      response.status(500).send(errorMessage);
+      return;
+    }
+    response.status(200).send(resultat);
+  });
+}
+
+const listerReparationNonEntamer = (request, response) => {
+  const idDepot = request.body.idDepot;
+  if (!checker.isInputValid(idDepot, checker.IS_EMPTY_STRING)) {
+    const errorMessage = {
+      "status": 500,
+      "message": "Champs obligatoire introuvable.",
+      "errorType": "InvalidField"
+    };
+    response.status(500).send(errorMessage);
+    return;
+  }
+
+  Reparation.find({
+    idDepot: idDepot,
+    dateCommencement: null
+  }, (errorFind, resultat) => {
+    if (errorFind) {
+      console.log("Update entamer reparation",errorFind);
+      const errorMessage = {
+        "status": 500,
+        "message": "Une erreur s'est produite.",
+        "errorType": "ErrorServer"
+      };
+      response.status(500).send(errorMessage);
+      return;
+    }
+    response.status(200).send(resultat);
+  });
+}
+
+const listerReparationEncours = (request, response) => {
+  const idDepot = request.body.idDepot;
+  if (!checker.isInputValid(idDepot, checker.IS_EMPTY_STRING)) {
+    const errorMessage = {
+      "status": 500,
+      "message": "Champs obligatoire introuvable.",
+      "errorType": "InvalidField"
+    };
+    response.status(500).send(errorMessage);
+    return;
+  }
+
+  Reparation.find({
+    idDepot: idDepot,
+    dateCommencement: {
+      $ne: null
+    },
+    etat: 0
+  }, (errorFind, resultat) => {
+    if (errorFind) {
+      console.log("Update entamer reparation",errorFind);
+      const errorMessage = {
+        "status": 500,
+        "message": "Une erreur s'est produite.",
+        "errorType": "ErrorServer"
+      };
+      response.status(500).send(errorMessage);
+      return;
+    }
+    response.status(200).send(resultat);
+  });
+}
+
+const listerReparationTermine = (request, response) => {
+  const idDepot = request.body.idDepot;
+  if (!checker.isInputValid(idDepot, checker.IS_EMPTY_STRING)) {
+    const errorMessage = {
+      "status": 500,
+      "message": "Champs obligatoire introuvable.",
+      "errorType": "InvalidField"
+    };
+    response.status(500).send(errorMessage);
+    return;
+  }
+
+  Reparation.find({
+    idDepot: idDepot,
+    etat: 5,
+  }, (errorFind, resultat) => {
+    if (errorFind) {
+      console.log("Update entamer reparation",errorFind);
+      const errorMessage = {
+        "status": 500,
+        "message": "Une erreur s'est produite.",
+        "errorType": "ErrorServer"
+      };
+      response.status(500).send(errorMessage);
+      return;
+    }
+    response.status(200).send(resultat);
+  });
 }
 
 const entamerReparation = (request, response) => {
@@ -548,18 +754,6 @@ const entamerReparation = (request, response) => {
       response.status(500).send(errorMessage);
       return;
     }
-    // const now = new Date();
-    // const options = {
-    //   timeZone: "Indian/Antananarivo",
-    //   day: '2-digit',
-    //   month: '2-digit',
-    //   year: 'numeric',
-    //   hour: '2-digit',
-    //   minute: '2-digit',
-    //   second: '2-digit'
-    // };
-    // const formattedDate = now.toLocaleString('en-US', options);
-    // console.log("formated", formattedDate);
     Reparation.findByIdAndUpdate(idReparation, {
       dateCommencement: Date.now()
     }, (errorUpdate, result) => {
@@ -606,7 +800,6 @@ const entamerReparation = (request, response) => {
 };
 
 const updateAvancementReparation = (request, response) => {
-  // TODO entamer la reparation d'une voiture ou la terminer
   const idReparation = request.body.idReparation;
   const avancement = request.body.avancement;
 
@@ -682,20 +875,41 @@ const suiviReparation = (request, response) => {
   // TODO afficher les reparations d'un vehicule
 }
 
+const getResponsable = (request, response) => {
+  Personnel.find((error, resultat) => {
+    if (error) {
+      console.log(error);
+      const errorMessage = {
+        "status": 500,
+        "message": "Champs obligatoire invalide ou introuvable.",
+        "errorType": "InvalidField"
+      };
+      response.status(500).send(errorMessage);
+      return;
+    }
+    response.status(200).send(resultat);
+  });
+}
+
 module.exports = {
   enregistrementDepot,
   historiqueVoiture,
   historiqueVoitureClient,
   listeVoiture,
   historiqueReparation,
-  proprietaireVoiture
+  proprietaireVoiture,
   assignerReparation,
   vehiculeDepose,
   ajouterVehicule,
   ajouterReparation,
   listerReparation,
+  listerReparationNonEntamer,
   updateAvancementReparation,
   mesVehicule,
   suiviReparation,
-  entamerReparation
+  entamerReparation,
+  getResponsable,
+  listerReparationEncours,
+  listerReparationTermine,
+  detailsDepot
 }

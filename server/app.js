@@ -10,8 +10,8 @@ var usersRouter = require('./routes/users');
 var clientRouter = require('./routes/apiclient');
 var depotRouter = require('./routes/apidepot');
 var loginRouter = require('./routes/apilogin');
-var responableRouter = require('./routes/responsable')
-
+var responableRouter = require('./routes/apiresponsable');
+var historiqueRouter = require('./routes/apiclient');
 var app = express();
 
 const connectDB = require('./db/connection')
@@ -39,6 +39,7 @@ app.use('/api/depot', depotRouter);
 app.use('/api/client', clientRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/responsable', responableRouter );
+app.use('/api/historique', historiqueRouter);
 
 app.use('/**', indexRouter);
 

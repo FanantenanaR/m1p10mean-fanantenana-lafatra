@@ -144,6 +144,8 @@ const clientInscription = (request, response) => {
     })
 };
 
+
+
 module.exports = {
     clientInscription
 };

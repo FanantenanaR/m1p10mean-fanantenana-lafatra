@@ -1,0 +1,127 @@
+<app-responsbleheader></app-responsbleheader>
+<body>
+  <div class="container-scroller">
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="respEnregistrementDepot">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Engistrement voiture</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="historiqueReparation">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Historique</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="responsableFacture">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Facture</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="responsableVoitureDeposee">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Listes voitures</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-8 grid-margin stretch-card" style="text-align: center;">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <h1 style="color: black;"><strong>FACTURE</strong></h1>
+                  <div style="text-align: start;">
+                    <h3 style="color: black;">{{ voiture[0].marque }}, {{ voiture[0].modele }}</h3>
+                    <h3 style="color: black;">{{ voiture[0].plaque }}</h3>
+                  </div>
+                  <div style="text-align: end;">
+                    <h3 style="color: black;">Dépôt:{{ depot[0].dateHeure | date: 'dd/MM/yyyy à hh:mm' }} </h3>
+                    <h3 style="color: black;">Facture:{{ facture[0].daty | date: 'dd/MM/yyyy à hh:mm' }} </h3>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>A réparer</th>
+                          <th>Prix (Ar)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let detail of detailFacture">
+                          <td>{{ detail.libelle }}</td>
+                          <td>{{ detail.prix | number}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <h2 style="text-align: end;" ><strong>Total: {{ facture[0].total | number}}Ar </strong></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4 grid-margin stretch-card" style="text-align: center;">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <h1 style="color: black;"><strong>PAIEMENT</strong></h1>
+                  <h2>Insérez un montant pour payer</h2>
+                  <form [formGroup]="userForm">
+                    <div class="input-group mb-3">
+                      <input type="number" class="form-control" placeholder="Montant" formControlName="montant" aria-label="Username" aria-describedby="basic-addon1">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">Ar</span>
+                      </div>
+                    </div>
+                  </form>
+                  <button type="button" class="btn btn-outline-info" (click)="ajouterPaiement()" >Payer</button>
+                  <hr>
+                  <h2>Paiements effectués</h2>
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th scope="col">Date heure</th>
+                        <th scope="col">Montant (Ar)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let paiement of detailPaiement" >
+                        <td>{{ paiement.dateHeure | date }}</td>
+                        <td>{{ paiement.montant | number }}</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><strong>{{ total }}</strong></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+</body>

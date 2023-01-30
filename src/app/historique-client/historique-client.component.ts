@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoriqueService } from '../services/historique.service';
+import { ActivatedRoute } from '@angular/router';
+import { FactureserviceService } from '../services/factureservice.service';
 
 @Component({
   selector: 'app-historique-client',
@@ -8,25 +9,44 @@ import { HistoriqueService } from '../services/historique.service';
 })
 export class HistoriqueClientComponent implements OnInit {
 
-  constructor(private historiqueService: HistoriqueService) { }
+  constructor(private factureService: FactureserviceService, private route: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.getlisteHistorique();
-  }
 
   idClient = localStorage.getItem('idClient');
-  listeHistorique: any;
 
-  getlisteHistorique(){
-    this.historiqueService.historiqueClient(this.idClient).subscribe(
+  listevoitureClient: any;
+  listeHistoriqueDepot: any;
+
+  selectedCar: any;
+
+  idVoiture = this.route.snapshot.paramMap.get('idVoiture');
+
+  ngOnInit(): void {
+    this.getListeVoitureClient();
+    this.getDepotVoiture();
+  }
+
+
+  getListeVoitureClient(){
+    this.factureService.listeVoitureClient(this.idClient).subscribe(
       (data: any) => {
-        // if(data.status == 200){
-        //   this.listeHistorique = data;
-        // }
-        console.log(data.message);
-        this.listeHistorique = data.message;
+        //console.log(data);
+        this.listevoitureClient = data.message;
       }
     )
+  }
+
+  getDepotVoiture(){
+    this.factureService.listeDepotVoiture(this.idVoiture).subscribe(
+      (data: any) => {
+        console.log(data);
+        this.listeHistoriqueDepot = data.message;
+      }
+    )
+  }
+
+  onSelectChange(event: any) {
+    this.selectedCar = event.target.value;
   }
 
 }

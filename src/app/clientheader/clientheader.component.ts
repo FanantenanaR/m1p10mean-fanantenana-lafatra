@@ -12,4 +12,11 @@ export class ClientheaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  idClient = localStorage.getItem('idClient');
+
+  logout(){
+    localStorage.removeItem('idClient');
+    window.location.href = "clientAccueil";
+  }
+
 }

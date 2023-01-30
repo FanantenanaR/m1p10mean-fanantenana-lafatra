@@ -15,8 +15,8 @@ export class LoginresponsableComponent implements OnInit {
 
   constructor(private loginService: LoginserviceService, private fb: FormBuilder) {
     this.userForm = this.fb.group({
-      login: '',
-      mdp: ''
+      login: 'lafatra',
+      mdp: 'lafatra123'
     });
   }
 
@@ -33,7 +33,7 @@ export class LoginresponsableComponent implements OnInit {
     this.loginService.loginResponsable(this.login, this.mdp).subscribe(
       (data: any) => {
         if(data.status == 200){
-          //localStorage.setItem('idResponsable', )
+          localStorage.setItem('idResponsable', data.message[0]._id);
           window.location.href = "respAccueil";
         }
       }, (error: any) => {

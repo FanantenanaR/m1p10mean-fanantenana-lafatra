@@ -1,6 +1,60 @@
+
 <app-clientheader></app-clientheader>
-<p>historique-client works!</p>
-<p>{{ idClient }}</p>
-<div *ngFor = "let liste of listeHistorique">
-  <p>{{ liste.idVoiture }}</p>
-</div>
+
+<section class="section why-us" data-section="section2">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <div id='tabs'>
+
+          <section class='tabs-content'>
+
+          </section>
+
+          <br><br><br><br><br>
+          <section class="section courses" data-section="section4">
+            <div class="row">
+              <div class="col-md-12 item" style="align-items: center;">
+                <div class="down-content" >
+                  <h3 style="color: black;">Voir les historiques des facture disponibles sur ces voitures</h3>
+                  <select [(ngModel)]="selectedCar" class="form-select" aria-label="Default select example" style="min-height: 50px; min-width: 250px;">
+                      <option *ngFor="let liste of listevoitureClient" [value]="liste._id">
+                        {{ liste.plaque }} - {{ liste.modele }} - {{ liste.marque }}
+                      </option>
+                  </select>
+                  <p style="color: black;">{{ selectedCar }}</p>
+                  <a href="clientHistorique/depot/{{ selectedCar }}"><button type="button" class="btn btn-primary" style="min-height: 50px;">Voir</button></a>
+                  </div>
+              </div>
+            </div>
+          </section>
+
+          <div *ngFor="let depot of listeHistoriqueDepot">
+            <section class="section courses" data-section="section4">
+              <div class="row">
+                <div class="col-md-12 item" style="align-items: center;">
+                  <div class="down-content" >
+                    <h4 style="color: black;"> {{ depot.dateHeure | date: 'dd/MM/yyyy à hh:mm' }} </h4>
+                    <p style="color: black;">Nom dépositeur: {{ depot.Depositeur.nom }} {{ depot.Depositeur.prenom }}</p>
+                    <p style="color: black;">Tel dépositeur: {{ depot.Depositeur.tel }} </p>
+                    <p style="color: black;">Nom recepteur: {{ depot.Recepteur.nom }} {{ depot.Recepteur.prenom }}</p>
+                    <p style="color: black;">tel recepteur: {{ depot.Recepteur.tel }}</p>
+                    <br>
+                    <div class="text-button-pay">
+                      <a href="clientFacture/{{ depot._id }}">Voir la facture<i class="fa fa-angle-double-right"></i></a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </section>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

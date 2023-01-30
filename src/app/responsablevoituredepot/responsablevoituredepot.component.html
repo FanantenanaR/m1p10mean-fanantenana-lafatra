@@ -21,7 +21,7 @@
           <li class="nav-item">
             <a class="nav-link" href="responsableFacture">
               <i class="ti-shield menu-icon"></i>
-              <span class="menu-title">Facture</span>
+              <span class="menu-title">Factures</span>
             </a>
           </li>
           <li class="nav-item">
@@ -36,19 +36,27 @@
       <div class="main-panel">
 
         <div class="content-wrapper">
-          <h1>Voir les historiques de ces voitures.</h1>
+          <h1>Factures:</h1>
           <div class="row">
 
-            <div *ngFor="let liste of listeVoiture">
-              <div class="col-md-12 grid-margin stretch-card">
+              <div *ngFor="let liste of listeVoiture" class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <a href="historiqueReparation/voiture/{{ liste._id }}"><button type="button" class="btn btn-info">{{ liste.plaque }}</button></a>
+                    <h4>Date: {{ liste.dateHeure | date }}</h4>
+                    <hr>
+                    <h4>Dépositeur: {{ liste.Depositeur.nom }} {{ liste.Depositeur.prenom }} </h4>
+                    <p>Tel: {{ liste.Depositeur.tel }}</p>
+                    <hr>
+                    <h4>Recepteur: {{ liste.Recepteur.nom }} {{ liste.Recepteur.prenom }} </h4>
+                    <p>Tel: {{ liste.Recepteur.tel }}</p>
+                    <div  style="text-align: end;">
+                      <a href="responsableVoitureDeposee/detail/{{ liste._id }}">Voir detail >></a>
+                    </div>
                   </div>
-              </div>
+                </div>
               </div>
 
-            </div>
+
 
 
 

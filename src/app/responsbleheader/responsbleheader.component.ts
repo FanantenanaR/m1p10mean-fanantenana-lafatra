@@ -12,4 +12,9 @@ export class ResponsbleheaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logout(){
+    localStorage.removeItem('idResponsable');
+    window.location.href = "responsableLogin";
+  }
+
 }

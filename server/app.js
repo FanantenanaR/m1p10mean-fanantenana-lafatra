@@ -9,6 +9,8 @@ var usersRouter = require('./routes/users');
 var clientRouter = require('./routes/apiclient');
 var depotRouter = require('./routes/apidepot');
 var loginRouter = require('./routes/apilogin');
+var factureRouter = require('./routes/apifacture');
+var sortieRouter = require('./routes/apisortie');
 
 var app = express();
 
@@ -36,6 +38,8 @@ app.use('/users', usersRouter);
 app.use('/api-client', clientRouter);
 app.use('/api-depot', depotRouter);
 app.use('/api-login', loginRouter);
+app.use('/api-facture', factureRouter);
+app.use('/api-sortie', sortieRouter);
 app.use('/**', indexRouter);
 
 

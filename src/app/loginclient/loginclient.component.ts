@@ -16,8 +16,8 @@ export class LoginclientComponent implements OnInit {
 
   constructor(private loginService: LoginserviceService, private fb: FormBuilder) {
     this.userForm = this.fb.group({
-      login: '',
-      mdp: ''
+      login: 'fanantenana',
+      mdp: 'fanantenana123'
     });
   }
 
@@ -40,6 +40,7 @@ export class LoginclientComponent implements OnInit {
       (data: any) => {
 
         if(data.status == 200){
+
           localStorage.setItem('idClient',data.message[0]._id);
           window.location.href = "clientAccueil";
           console.log(data.message[0]._id);
@@ -55,4 +56,6 @@ export class LoginclientComponent implements OnInit {
       }
     )
   }
+
+
 }

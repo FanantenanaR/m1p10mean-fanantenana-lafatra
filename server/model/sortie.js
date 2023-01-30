@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const SortieSchema = new mongoose.Schema(
     {
-      "idvoiture": {
+      "idVoiture": {
           type: String,
           required: true
       },
@@ -19,10 +19,6 @@ const SortieSchema = new mongoose.Schema(
           "tel": {
               type: String,
               required: true
-          },
-          "email": {
-            type: String,
-            required: true
           },
       },
       "responsable": {
@@ -44,7 +40,9 @@ const SortieSchema = new mongoose.Schema(
         },
         "role": {
           type: Number,
-          required: true
+          default: 5,
+          min: 0,
+          max: 5
         },
       },
       "dateHeure": {
@@ -52,8 +50,7 @@ const SortieSchema = new mongoose.Schema(
         default: Date.now
       },
       "idfacture": {
-        type: String,
-        required: true
+        type: String
       },
     },
     {
@@ -61,19 +58,7 @@ const SortieSchema = new mongoose.Schema(
     }
 );
 
-SortieSchema.pre('save', async function(next) {
-    try {
-      // Generate a salt
-      const salt = await bcrypt.genSalt(10);
-      // Generate a password hash (salt + hash)
-      const passwordHash = await bcrypt.hash(this.password, salt);
-      // Re-assign hashed version over original, plain text password
-      this.password = passwordHash;
-      next();
-    } catch(error) {
-      next(error);
-    }
-});
+
 const Sortie = mongoose.model('Sortie', SortieSchema);
 
 module.exports = Sortie;

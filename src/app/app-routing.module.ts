@@ -11,6 +11,11 @@ import { HistoriqueClientComponent } from './historique-client/historique-client
 import { ClientheaderComponent } from './clientheader/clientheader.component';
 import { ResponsablehistoriquereparationComponent } from './responsablehistoriquereparation/responsablehistoriquereparation.component';
 import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedetail/responsablehistoriquedetail.component';
+import { ClientfactureComponent } from './clientfacture/clientfacture.component';
+import { ResponsablefactureComponent } from './responsablefacture/responsablefacture.component';
+import { ResponsablefacturedetailComponent } from './responsablefacturedetail/responsablefacturedetail.component';
+import { ResponsablevoituredepotComponent } from './responsablevoituredepot/responsablevoituredepot.component';
+import { ResponsableDetailDepotVoitureComponent } from './responsable-detail-depot-voiture/responsable-detail-depot-voiture.component';
 
 const routes: Routes = [
   {path: 'respAccueil', component: ResponsableaccueilComponent},
@@ -20,9 +25,15 @@ const routes: Routes = [
   {path: 'respEnregistrementDepot', component: ResponsabledepotComponent},
   {path: 'inscription', component: ClientinscriptionComponent},
   {path: 'clientHistorique', component: HistoriqueClientComponent},
+  {path: 'clientHistorique/depot/:idVoiture', component: HistoriqueClientComponent},
+  {path: 'clientFacture/:idDepot', component: ClientfactureComponent},
   {path: 'clients', component: ClientheaderComponent},
   {path: 'historiqueReparation', component: ResponsablehistoriquereparationComponent},
-  {path: 'historiqueReparation/voiture/:idVoiture', component: ResponsablehistoriquedetailComponent}
+  {path: 'historiqueReparation/voiture/:idVoiture', component: ResponsablehistoriquedetailComponent},
+  {path: 'responsableFacture', component: ResponsablefactureComponent},
+  {path: 'responsableFacture/facture/:idFacture/:idDepot', component: ResponsablefacturedetailComponent},
+  {path: 'responsableVoitureDeposee', component: ResponsablevoituredepotComponent},
+  {path: 'responsableVoitureDeposee/detail/:idDepot', component: ResponsableDetailDepotVoitureComponent}
 ];
 
 @NgModule({

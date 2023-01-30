@@ -19,6 +19,11 @@ import { HistoriqueClientComponent } from './historique-client/historique-client
 import { ClientheaderComponent } from './clientheader/clientheader.component';
 import { ResponsablehistoriquereparationComponent } from './responsablehistoriquereparation/responsablehistoriquereparation.component';
 import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedetail/responsablehistoriquedetail.component';
+import { ClientfactureComponent } from './clientfacture/clientfacture.component';
+import { ResponsablefactureComponent } from './responsablefacture/responsablefacture.component';
+import { ResponsablefacturedetailComponent } from './responsablefacturedetail/responsablefacturedetail.component';
+import { ResponsablevoituredepotComponent } from './responsablevoituredepot/responsablevoituredepot.component';
+import { ResponsableDetailDepotVoitureComponent } from './responsable-detail-depot-voiture/responsable-detail-depot-voiture.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +38,12 @@ import { ResponsablehistoriquedetailComponent } from './responsablehistoriquedet
     HistoriqueClientComponent,
     ClientheaderComponent,
     ResponsablehistoriquereparationComponent,
-    ResponsablehistoriquedetailComponent
+    ResponsablehistoriquedetailComponent,
+    ClientfactureComponent,
+    ResponsablefactureComponent,
+    ResponsablefacturedetailComponent,
+    ResponsablevoituredepotComponent,
+    ResponsableDetailDepotVoitureComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,195 @@
+<app-responsbleheader></app-responsbleheader>
+<body>
+  <div class="container-scroller">
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="respEnregistrementDepot">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Engistrement voiture</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="historiqueReparation">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Historique</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="responsableFacture">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Facture</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="responsableVoitureDeposee">
+              <i class="ti-shield menu-icon"></i>
+              <span class="menu-title">Listes voitures</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+
+        <div class="content-wrapper">
+
+          <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card position-relative">
+                <div class="card-body">
+                  <p class="card-title">A propos de dépot</p>
+                  <div class="row">
+
+                    <div class="col-md- col-xl-9">
+                      <div class="row">
+
+                        <div class="col-md-6 col-xl-7">
+                          <div class="table-responsive mb-3 mb-md-0">
+                            <h4 class="card-description">
+                              Dépôt
+                            </h4>
+                            <table class="table table-borderless report-table">
+                              <tr>
+                                <td class="text-muted">Date: </td>
+                                <td class="w-100 px-0"> {{ depot.dateHeure | date}}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Nom dépositeur : </td>
+                                <td class="w-100 px-0"> {{ depot.Depositeur.nom }}</td>
+                                <td class="text-muted">Nom responsable : </td>
+                                <td class="w-100 px-0"> {{ depot.Depositeur.nom }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Prénom dépositeur: </td>
+                                <td class="w-100 px-0"> {{ depot.Depositeur.prenom }}</td>
+                                <td class="text-muted">Prénom responsable : </td>
+                                <td class="w-100 px-0"> {{ depot.Depositeur.prenom }}</td>
+                              </tr>
+                              <tr>
+                                <td class="text-muted">Téléphone dépositeur: </td>
+                                <td class="w-100 px-0"> {{ depot.Depositeur.tel }}</td>
+                                <td class="text-muted">Téléphone responsable : </td>
+                                <td class="w-100 px-0"> {{ depot.Depositeur.tel }}</td>
+                              </tr>
+                              <tr>
+                              </tr>
+                            </table>
+                          </div>
+
+
+                        </div>
+                        <div class="col-md-12 col-xl-5 d-flex flex-column justify-content-center">
+                          <div class="ml-xl-4">
+                            <div class="table-responsive mb-3 mb-md-0">
+                              <h4 class="card-description">
+                                Voiture
+                              </h4>
+                              <table class="table table-borderless report-table">
+                                <tr>
+                                  <td class="text-muted">Plaque: </td>
+                                  <td class="w-100 px-0"> {{ voiture.plaque }}</td>
+                                </tr>
+                                <tr>
+                                  <td class="text-muted">Marque: </td>
+                                  <td class="w-100 px-0"> {{ voiture.marque }}</td>
+                                </tr>
+                                <tr>
+                                  <td class="text-muted">Modèle: </td>
+                                  <td class="w-100 px-0"> {{ voiture.modele }}</td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-7 grid-margin stretch-card" style="text-align: center;">
+                      <div class="card">
+                        <div class="card-body">
+
+
+                          <h1 style="color: black;"><strong>Sortie</strong></h1>
+                          <h2>Veuillez remplir ce formulaire pour faire sortir cette voiture.</h2>
+                          <form [formGroup]="userForm">
+                            <h3>Preneur</h3>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Preneur nom</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="pNom" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Preneur prénom</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="pPrenom" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Preneur telephone</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="pTel" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <h3>Recepteur</h3>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Recepteur nom</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="rNom" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Recepteur prénom</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="rPrenom" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Recepteur telephone</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="rTel" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Recepteur email</span>
+                              </div>
+                              <input type="text" class="form-control" formControlName="email" aria-label="Username" aria-describedby="basic-addon1">
+                            </div>
+                          </form>
+                          <button type="button" class="btn btn-outline-info" (click)="sortie()" >Payer</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © bootstrapdash.com 2020</span>
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard templates</a> from Bootstrapdash.com</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+
+</body>

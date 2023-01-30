@@ -6,11 +6,15 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 var clientRouter = require('./routes/apiclient');
 var depotRouter = require('./routes/apidepot');
 var loginRouter = require('./routes/apilogin');
+
 var factureRouter = require('./routes/apifacture');
 var sortieRouter = require('./routes/apisortie');
+var responableRouter = require('./routes/apiresponsable');
+var historiqueRouter = require('./routes/apiclient');
 
 var app = express();
 
@@ -34,12 +38,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 
-app.use('/users', usersRouter);
-app.use('/api-client', clientRouter);
-app.use('/api-depot', depotRouter);
-app.use('/api-login', loginRouter);
 app.use('/api-facture', factureRouter);
 app.use('/api-sortie', sortieRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/depot', depotRouter);
+app.use('/api/client', clientRouter);
+app.use('/api/login', loginRouter);
+app.use('/api/responsable', responableRouter );
+app.use('/api/historique', historiqueRouter);
+
 app.use('/**', indexRouter);
 
 

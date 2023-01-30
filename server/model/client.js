@@ -50,7 +50,8 @@ const ClientSchema = new mongoose.Schema(
         },
         "password": {
             type: String,
-            required: true
+            required: true,
+            // select: false
         },
         "etatcompte": {
             type: Number,
@@ -65,18 +66,36 @@ const ClientSchema = new mongoose.Schema(
 );
 
 ClientSchema.pre('save', async function(next) {
-    try {
-      // Generate a salt
-      const salt = await bcrypt.genSalt(10);
-      // Generate a password hash (salt + hash)
-      const passwordHash = await bcrypt.hash(this.password, salt);
+  try {
+    let client = this;
+
+    //only hash if the password hqs been modified (or is new)
+    if (!client.isModified("password")) return next();
+
+    // Generate a salt
+    bcrypt.genSalt(10, (error, salt) => {
+      if (error) return next(error);
+
+      bcrypt.hash(this.password, salt, (errorHash, hash) => {
+        if (errorHash) return next(errorHash);
+        this.password = hash;
+        next();
+      });
       // Re-assign hashed version over original, plain text password
-      this.password = passwordHash;
-      next();
-    } catch(error) {
-      next(error);
-    }
+    });
+    // Generate a password hash (salt + hash)
+  } catch(error) {
+    next(error);
+  }
 });
+
+ClientSchema.methods.comparePassword = (candidatePassword, callback) => {
+  bcrypt.compare(candidatePassword, this.password, (error, isMatch) => {
+    if (error) return callback(error);
+    callback(null, isMatch);
+  });
+};
+
 const Client = mongoose.model('Client', ClientSchema);
 
 module.exports = Client;

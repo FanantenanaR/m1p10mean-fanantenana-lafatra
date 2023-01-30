@@ -126,7 +126,7 @@
                           <td>{{ reparation.aReparer }}</td>
                           <td>{{ reparation.dateCommencement | date}}</td>
                           <td>{{ reparation.Responsable.prenom }}</td>
-                          <td>{{ reparation.prixAPayer | number }}</td>
+                          <td>{{ reparation.prixAPayer | number: '1.0-0' }}</td>
                         </tr>
                       </tbody>
                     </table>

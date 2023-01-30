@@ -1,0 +1,187 @@
+<app-responsbleheader></app-responsbleheader>
+<div class="container-scroller">
+  <!-- partial -->
+  <div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_sidebar.html -->
+    <app-resp-side-bar></app-resp-side-bar>
+    <div class="container-fluid p-5">
+
+      <div class="display-2 text-center"><b>Fiche technique</b></div>
+      <br/>
+      <p class="font-thin text-center ">Ci-dessous les informations sur <span class="h4">{{detailsDepot.voiture.plaque}}</span>.</p>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="respListeDepot">Dépot</a></li>
+          <li class="breadcrumb-item active" aria-current="page"></li>
+        </ol>
+      </nav>
+      <div class="row p-2">
+          <div class="col-md-12">
+            <mat-card>
+              <div class="row">
+                <div class="col-md-6 card p-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p class="h2 text-center">Véhicule </p>
+                    </div>
+                    <!-- <div class="col-md-6"></div> -->
+                    <div class="col-md-3">Numéro du véhicule</div>
+                    <div class="col-md-8 h4">{{detailsDepot.voiture.plaque}}</div>
+                    <div class="col-md-3">Modele</div>
+                    <div class="col-md-8 h4">{{detailsDepot.voiture.modele}}</div>
+                    <div class="col-md-3">Marque</div>
+                    <div class="col-md-8 h4">{{detailsDepot.voiture.marque}}</div>
+                    <div class="col-md-3">Déposé le</div>
+                    <div class="col-md-8 h4">{{detailsDepot.depot.dateHeure| date: 'dd/MM/yyyy à hh:mm'}}</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row d-flex justify-content-around">
+                    <div class="col-md-5 card p-3">
+                      <p class="text-center h4">Avancement</p>
+                      <p class="text-center h1">20%</p>
+                    </div>
+                    <div class="col-md-5 card p-3">
+                      <p class="text-center h4">Temps passé</p>
+                      <p class="text-center h1">{{detailsDepot.sommeTempsReparation}} heure(s)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+          <div class="col-md-12 mx-3 row px-3 py-4 text-center card">
+            <div class="col-md-6">
+              <p class="h3 text-center">Réparation</p>
+              <br />
+              <form [formGroup]="ajoutRepGroup" ngClass="px-5" (submit)="ajouterReparation()">
+                <mat-form-field appearance="fill">
+                  <mat-label>Libelle</mat-label>
+                  <input matInput placeholder="Nom de la réparation"  formControlName="libelle" ngClass="w-100" />
+                </mat-form-field>
+                <br />
+                <mat-form-field appearance="fill">
+                  <mat-label>Prix</mat-label>
+                  <input matInput placeholder="Prix (en Ariary)"  formControlName="prix" ngClass="w-100" />
+                </mat-form-field>
+                <br />
+                <p>
+                  <mat-slide-toggle
+                    ngClass=""
+                    formControlName="updateIfExiste"
+                  >
+                    Fusionner en cas de doublon?
+                  </mat-slide-toggle>
+                </p>
+                <br />
+                <button mat-raised-button type="submit" color="primary">Ajouter</button>
+              </form>
+            </div>
+            <div class="col-md-6">
+              <div *ngIf="listReparationNonEntamer.length===0">
+                <p class="text-center">
+                  Aucun élement pour le moment.
+                </p>
+              </div>
+              <div *ngIf="listReparationNonEntamer.length > 0" class="p-4 mt-2">
+                <p class="h3 text-center">Assigner à</p>
+                <form  (submit)="assignerResponsable()" class="text-center">
+                  <mat-form-field appearance="fill">
+                    <mat-label>A réparer</mat-label>
+                    <mat-select [(value)]="selectedReparation" ngClass="w-100" >
+                      <div *ngFor="let reparationNE of listReparationNonEntamer" >
+                        <mat-option *ngIf="reparationNE.Responsable === undefined" [value]="reparationNE._id">
+                          {{reparationNE.aReparer}} - {{reparationNE.prixAPayer | number: '1.0-0'}} Ar
+                        </mat-option>
+                      </div>
+                    </mat-select>
+                  </mat-form-field>
+                  <br/>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Responsable</mat-label>
+                    <mat-select [(value)]="selectedResponsable" ngClass="w-100" >
+                      <mat-option *ngFor="let responsable of listResponsable" [value]="responsable._id">
+                        {{responsable.nom}} {{responsable.prenom}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <br />
+                  <button mat-raised-button type="submit" color="primary">Assigner</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-12 row" >
+            <div class="col-md-4 p-5">
+              <div class="card p-4 shadow border rounded">
+                <p class="h3 text-center">En attente</p>
+                <br />
+                <p  *ngIf="listReparationNonEntamer.length === 0" class="text-center">
+                  Aucun élement pour le moment.
+                </p>
+                <mat-nav-list>
+                  <mat-list-item *ngFor="let reparationNE of listReparationNonEntamer" class="row">
+                     <span matListItemTitle href="..." class="col">
+                      <b>{{ reparationNE.aReparer }}</b>
+                      <br/>
+                      {{reparationNE.prixAPayer | number: '1.0-0'}} Ar</span>
+                     <span *ngIf="reparationNE.Responsable === undefined" class="col px-2 py-3 text-center">
+                        Assigner un responsable avant de commencer.
+                    </span>
+                     <button *ngIf="reparationNE.Responsable !== undefined" mat-raised-button matListItemMeta color="primary" class="col-md-3" (click)="commencerTache(reparationNE._id)">
+                        Start
+                     </button>
+
+                     <hr />
+                  </mat-list-item>
+                </mat-nav-list>
+              </div>
+            </div>
+            <div class="col-md-4 p-5">
+              <div class="card p-4 shadow border rounded">
+                <p class="h3 text-center">En cours</p>
+                <p class="text-center">Les élements suivants sont les taches en cours d'execution. <b>CLIQUER</b> pour mettre à jour l'avancement.</p>
+                <hr />
+                <p *ngIf="listReparationEncours.length === 0" class="text-center">
+                  Aucun élement pour le moment.
+                </p>
+                <mat-nav-list>
+                  <mat-list-item *ngFor="let reparationEncours of listReparationEncours" class="row rounded-bottom border-bottom m-2">
+                    <span class="col">
+                      {{reparationEncours.aReparer}}
+                    </span>
+                    <span class="text-right">
+                      {{reparationEncours.avancement}}%
+                    </span>
+                  </mat-list-item>
+                </mat-nav-list>
+              </div>
+            </div>
+            <div class="col-md-4 p-5">
+              <div class="card p-4 shadow border rounded">
+                <p class="h3 text-center">Terminé</p>
+                <br />
+                <p *ngIf="listReparationFait.length === 0" class="text-center">
+                  Aucun élement pour le moment.
+                </p>
+                <mat-nav-list>
+                  <mat-list-item *ngFor="let reparationFait of listReparationFait" class="row rounded-bottom border-bottom m-2">
+                    <span class="col">
+                      {{reparationFait.aReparer}}
+                    </span>
+                    <b class="text-right">
+                      {{reparationFait.prixAPayer| number}} Ar
+                    </b>
+                  </mat-list-item>
+                </mat-nav-list>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+  <!-- page-body-wrapper ends -->
+</div>

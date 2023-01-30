@@ -16,6 +16,8 @@ import { ResponsablefactureComponent } from './responsablefacture/responsablefac
 import { ResponsablefacturedetailComponent } from './responsablefacturedetail/responsablefacturedetail.component';
 import { ResponsablevoituredepotComponent } from './responsablevoituredepot/responsablevoituredepot.component';
 import { ResponsableDetailDepotVoitureComponent } from './responsable-detail-depot-voiture/responsable-detail-depot-voiture.component';
+import { RespListeDepotComponent } from './resp-liste-depot/resp-liste-depot.component';
+import { ResponsableDepotDetailsComponent } from './responsable-depot-details/responsable-depot-details.component';
 
 const routes: Routes = [
   {path: 'respAccueil', component: ResponsableaccueilComponent},
@@ -34,6 +36,8 @@ const routes: Routes = [
   {path: 'responsableFacture/facture/:idFacture/:idDepot', component: ResponsablefacturedetailComponent},
   {path: 'responsableVoitureDeposee', component: ResponsablevoituredepotComponent},
   {path: 'responsableVoitureDeposee/detail/:idDepot', component: ResponsableDetailDepotVoitureComponent}
+  {path: 'depot/:idDepot', component: ResponsableDepotDetailsComponent},
+  {path: 'respListeDepot',component: RespListeDepotComponent}
 ];
 
 @NgModule({
